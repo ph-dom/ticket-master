@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const HomeComponent = props => {
     return (
@@ -9,7 +10,6 @@ const HomeComponent = props => {
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Nombre</th>
                             <th>Estado</th>
                             <th>Mensajes</th>
@@ -18,14 +18,12 @@ const HomeComponent = props => {
                     </thead>
                     <tbody>
                         {props.tickets.map(ticket => {
-                            console.log(ticket)
                             return (
                                 <tr key={ticket.id}>
-                                    <td>{ticket.id}</td>
                                     <td>{ticket.name}</td>
                                     <td>{ticket.list.name}</td>
                                     <td>{ticket.actions.length}</td>
-                                    <td>ya va</td>
+                                    <td><Link to={`/ticket/${ticket.id}`}>Ver</Link></td>
                                 </tr>
                             );
                         })}

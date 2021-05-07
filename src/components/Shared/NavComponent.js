@@ -17,7 +17,7 @@ const NavComponent = props => {
                     <ul>
                         <li><NavLink to="/">Mis Tickets</NavLink></li>
                         <li><NavLink to="/create-ticket">Crear Ticket</NavLink></li>
-                        <li><NavLink to="/user">Crear Usuario</NavLink></li>
+                        {props.role === 'admin' && <li><NavLink to="/user">Crear Usuario</NavLink></li>}
                         <li><button onClick={handleLogout}>Cerrar sesión</button></li>
                     </ul>
                 </nav>
@@ -27,7 +27,8 @@ const NavComponent = props => {
 }
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.user.uid !== null
+    isAuthenticated: state.user.uid !== null,
+    role: state.user.uid !== null ? state.user.role : null
 });
 
 const mapDispatchToProps = (dispatch) => ({

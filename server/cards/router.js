@@ -10,7 +10,6 @@ router.post('/api/cards', authmid, async (request, response) => {
     try {
         const user = request.user;
         const newCard = new Card(request.body).toObject();
-        console.log(newCard);
         let cardResponse = await createCard(newCard);
         if(user.projects.indexOf(newCard.project) === -1) {
             throw new Error('No puedes crear incidencias para este proyecto.');
@@ -23,7 +22,6 @@ router.post('/api/cards', authmid, async (request, response) => {
         const card = await getCardData(newCard.id)
         response.status(200).send(card);
     } catch(error) {
-        console.log(error.message);
         response.status(400).send(error.message);
     }
 });

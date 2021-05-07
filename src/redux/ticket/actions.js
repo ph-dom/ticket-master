@@ -15,7 +15,6 @@ export const startGetUserTickets = () => {
         }).then(response => {
             dispatch(getUserTickets(response.data));
         }).catch(error => {
-            console.log(error);
             dispatch(openModal('Lo sentimos!', 'Error al obtener tickets.', 'ERROR'));
         });
     };
@@ -36,10 +35,10 @@ export const startCreateTicket = ticket => {
                 'Authorization': 'Bearer ' + getState().user.idToken
             }
         }).then(response => {
+            ticket.id = response.data.id;
             const createdTicket = response.data;
             dispatch(createTicket(createdTicket));
         }).catch(error => {
-            console.log(error);
             dispatch(openModal('Lo sentimos!', 'Error al crear ticket.', 'ERROR'));
         });
     };

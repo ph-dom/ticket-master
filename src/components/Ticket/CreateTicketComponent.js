@@ -1,10 +1,8 @@
-import React, { createRef, useState } from 'react';
+import React, { createRef } from 'react';
 import { connect } from 'react-redux';
 import { startCreateTicket } from '../../redux/ticket/actions';
 
 const CreateTicketComponent = props => {
-    const [ message, setMessage ] = useState('');
-
     const nameInput = createRef(null);
     const descriptionInput = createRef(null);
     const labelInput = createRef(null);
@@ -19,8 +17,10 @@ const CreateTicketComponent = props => {
             project: projectInput.current.value
         };
         props.startCreateTicket(ticket).then(() => {
-            setMessage('Tarjeta creada.');
-            document.querySelector('#ticket-form').reset();
+            if(ticket.id) {
+                props.history.push(`/ticket/${ticket.id}`);
+                document.querySelector('#ticket-form').reset();
+            }
         });
     }
 
@@ -59,7 +59,6 @@ const CreateTicketComponent = props => {
             <div>
                 <button type="submit" form="ticket-form">Crear Ticket</button>
             </div>
-            {message && <p>{message}</p>}
         </form>
     );
 }

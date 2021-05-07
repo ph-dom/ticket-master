@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { openModal } from '../modal/actions';
 
-const getBoardData = ({ labels, customFields, lists, members }) => ({
+const getBoardData = ({ labels, customFields, lists, members, projects }) => ({
     type: 'GET_BOARD_DATA',
     data: {
         labels,
         customFields,
         lists,
-        members
+        members,
+        projects
     }
 });
 
@@ -20,7 +21,6 @@ export const startGetBoardData = () => {
         }).then(response => {
             dispatch(getBoardData(response.data));
         }).catch(error => {
-            console.log(error);
             dispatch(openModal('Lo sentimos!', 'Error al obtener datos de trello.', 'ERROR'));
         });
     };

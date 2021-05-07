@@ -55,7 +55,6 @@ const UserComponent = props => {
             setMessage('Usuario creado con éxito. uid: ' + data.uid);
             document.querySelector('#user-form').reset();
         }).catch(error => {
-            console.log(error);
             setMessage('Error al registrar usuario.');
         })
     }

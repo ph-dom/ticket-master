@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-const { getCustomFields } = require('../board/contorller');
+const { getCustomFields } = require('../board/controller');
 
 const instance = axios.create({
     baseURL: 'https://api.trello.com'
@@ -39,9 +39,7 @@ const updateCustomFields = (idCard, idCustomField, data) => {
 }
 
 const createRequestParams = async (idCard, email, name, project) => {
-    console.log({idCard, email, name, project})
     const customFields =  await getCustomFields();
-    console.log(customFields)
     const promises = [];
     for(let custom of customFields) {
         let data = {};
