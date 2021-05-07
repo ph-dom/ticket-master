@@ -6,6 +6,8 @@ import { startGetBoardData } from '../../redux/board/actions';
 import { startGetUserTickets } from '../../redux/ticket/actions';
 import NavComponent from './NavComponent';
 import LoadingComponent from './LoadingComponent';
+import ModalComponent from './ModalComponent';
+import FooterComponent from './FooterComponent';
 
 class BaseComponent extends React.Component {
 
@@ -52,9 +54,8 @@ class BaseComponent extends React.Component {
                 <React.Fragment>
                     <NavComponent />
                     {this.props.children}
-                    <footer>
-                        <p>Ticket-Master</p>
-                    </footer>
+                    <ModalComponent />
+                    <FooterComponent />
                 </React.Fragment>
             );
         } else {

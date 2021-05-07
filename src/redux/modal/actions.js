@@ -9,5 +9,5 @@ export const openModal = (title, message, type) => ({
 });
 
 export const closeModal = () => ({
-    type: 'OPEN_MODAL'
+    type: 'CLOSE_MODAL'
 });

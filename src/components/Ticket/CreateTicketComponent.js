@@ -18,8 +18,8 @@ const CreateTicketComponent = props => {
         };
         props.startCreateTicket(ticket).then(() => {
             if(ticket.id) {
-                props.history.push(`/ticket/${ticket.id}`);
                 document.querySelector('#ticket-form').reset();
+                props.history.push(`/ticket/${ticket.id}`);
             }
         });
     }
