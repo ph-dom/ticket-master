@@ -1,8 +1,23 @@
 import React, { createRef, useState } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+
+const createNewUser = (idToken, newUser) => {
+    return axios.request({
+        url: '/api/users',
+        method: 'post',
+        data: newUser,
+        headers: {
+            'Authorization': idToken
+        }
+    }).then(response => {
+        return response.data;
+    });
+};
 
 const UserComponent = props => {
-    const [ proyects, setProyects ] = useState([]);
+    const [ projects, setProjects ] = useState([]);
+    const [ message, setMessage ] = useState('');
 
     const nameRef = createRef(null);
     const emailRef = createRef(null);
@@ -10,14 +25,14 @@ const UserComponent = props => {
     const passwordRef = createRef(null);
     const roleRef = createRef(null);
     
-    const handleChangeProyectsCheckbox = event => {
+    const handleChangeProjectsCheckbox = event => {
         const value = event.target.value;
-        if(proyects.indexOf(value) > -1) {
-            setProyects(prycts => {
+        if(projects.indexOf(value) > -1) {
+            setProjects(prycts => {
                 return prycts.filter(x => x !== value);
             });
         } else {
-            setProyects(prycts => {
+            setProjects(prycts => {
                 return [
                     ...prycts,
                     value
@@ -26,10 +41,29 @@ const UserComponent = props => {
         }
     }
 
+    const handleSubmitForm = event => {
+        event.preventDefault();
+        let newUser = {
+            email: emailRef.current.value,
+            phoneNumber: phoneNumberRef.current.value,
+            password: passwordRef.current.value,
+            displayName: nameRef.current.value,
+            projects,
+            role: roleRef.current.value
+        };
+        createNewUser(props.idToken, newUser).then(data => {
+            setMessage('Usuario creado con éxito. uid: ' + data.uid);
+            document.querySelector('#user-form').reset();
+        }).catch(error => {
+            console.log(error);
+            setMessage('Error al registrar usuario.');
+        })
+    }
+
     return (
         <div>
             <h1>UsersComponent</h1>
-            <form id="user-form">
+            <form id="user-form" onSubmit={handleSubmitForm}>
                 <div>
                     <label htmlFor="displayName">Nombre</label>
                     <input type="text" id="displayName" name="displayName" ref={nameRef} />
@@ -51,7 +85,7 @@ const UserComponent = props => {
                     {(props.customFields.length > 0) && props.customFields.find(cf => cf.name === 'proyecto').options.map(opt => {
                         return (
                             <div key={opt.id}>
-                                <input type="checkbox" id={opt.id} name="projects" value={opt.value.text} onChange={handleChangeProyectsCheckbox}/>
+                                <input type="checkbox" id={opt.id} name="projects" value={opt.value.text} onChange={handleChangeProjectsCheckbox}/>
                                 <label htmlFor={opt.id}>{opt.value.text}</label>
                             </div>
                         );
@@ -67,12 +101,14 @@ const UserComponent = props => {
                 </div>
                 <button type="submit" form="user-form">Crear Usuario</button>
             </form>
+            {message && <p>{message}</p>}
         </div>
     );
 }
 
 const mapStateToProps = (state) => ({
-    customFields: state.board.customFields || []
+    customFields: state.board.customFields || [],
+    idToken: state.user.idToken
 });
 
 export default connect(mapStateToProps)(UserComponent);

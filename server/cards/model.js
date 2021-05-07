@@ -1,17 +1,15 @@
 class Card {
     name = null;
     desc = null;
-    idList = null;
+    idList = '60538b94fd5b7a7d8c3151cf'; //Backlog
     idLabels = null;
-    idMembers = null;
+    idMembers = '60538224b64e4a7e14b831f7'; //pablohenriquez18
     project = null;
 
-    constructor({ name, desc, idList, idLabels, idMembers, project }) {
+    constructor({ name, desc, idLabels, project }) {
         this.setName(name);
         this.setDesc(desc);
-        this.setIdList(idList);
         this.setIdLabels(idLabels);
-        this.setIdMembers(idMembers);
         this.setProject(project);
     }
 
@@ -31,27 +29,11 @@ class Card {
         }
     }
 
-    setIdList(idList) {
-        if(typeof idList === 'string' && idList.trim().length > 0 && idList.indexOf(',') === -1) {
-            this.idList = idList;
-        } else {
-            throw new Error('Error interno, ID de lista incorrecta.');
-        }
-    }
-
     setIdLabels(idLabels) {
         if(typeof idLabels === 'string' && idLabels.trim().length > 0 && idLabels.indexOf(',') === -1) {
             this.idLabels = idLabels;
         } else {
             throw new Error('Tipo de incidencia incorrecto.');
-        }
-    }
-
-    setIdMembers(idMembers) {
-        if(typeof idMembers === 'string' && idMembers.trim().length > 0 && idMembers.indexOf(',') === -1) {
-            this.idMembers = idMembers;
-        } else {
-            throw new Error('Error interno, ID de responsable incorrecto.');
         }
     }
 

@@ -21,6 +21,10 @@ const getBoardData = () => {
             customFields: data.customFields,
             lists: data.lists,
             members: data.members,
+            projects: data.customFields.find(cf => cf.name === 'proyecto').options.map(opt => ({
+                id: opt.id,
+                name: opt.value.text
+            }))
         };
     });
 }

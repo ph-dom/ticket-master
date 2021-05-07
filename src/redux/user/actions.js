@@ -35,4 +35,4 @@ export const getUserData = uid => {
         const data = documentSnapshot.data();
         return data;
     });
-}
+};

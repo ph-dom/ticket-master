@@ -20,7 +20,7 @@ const createCard = card => {
         }
     }).then(response => {
         card.id = response.data.id;
-        return card;
+        return response.data;
     });
 }
 
@@ -39,7 +39,9 @@ const updateCustomFields = (idCard, idCustomField, data) => {
 }
 
 const createRequestParams = async (idCard, email, name, project) => {
+    console.log({idCard, email, name, project})
     const customFields =  await getCustomFields();
+    console.log(customFields)
     const promises = [];
     for(let custom of customFields) {
         let data = {};
@@ -52,7 +54,7 @@ const createRequestParams = async (idCard, email, name, project) => {
             case 'nombre informador':
                 data.value = {
                     text: name
-                }
+                };
                 break;
             case 'proyecto':
                 data.idValue = custom.options.find(opt => opt.value.text === project).id;
@@ -70,15 +72,56 @@ const getCardData = idCard => {
         params: {
             key: process.env.TRELLO_KEY,
             token: process.env.TRELLO_TOKEN,
-            attachments: true
+            attachments: true,
+            customFieldItems: true,
+            list: true,
+            members: true,
+            actions: 'commentCard'
         }
     }).then(response => {
         return response.data;
     })
 }
 
+const addCommentToCard = (idCard, comment) => {
+    return instance.request({
+        method: 'post',
+        url: `/1/cards/${idCard}/actions/comments`,
+        params: {
+            key: process.env.TRELLO_KEY,
+            token: process.env.TRELLO_TOKEN,
+            text: comment
+        }
+    }).then(response => {
+        return response.data;
+    });
+}
+
+const addAttachmentToCard = (idCard, attachment) => {
+    return instance.request({
+        method: 'post',
+        url: `/1/cards/${idCard}/attachments`,
+        params: {
+            key: process.env.TRELLO_KEY,
+            token: process.env.TRELLO_TOKEN,
+            name: attachment.name, //The name of the attachment. Max length 256.
+            file: attachment.file, //The file to attach, as multipart/form-data
+            mimeType: attachment.mimeType, //The mimeType of the attachment. Max length 256
+            url: attachment.url, //A URL to attach. Must start with http:// or https://
+            setCover: false //Determines whether to use the new attachment as a cover for the Card.
+        },
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }).then(response => {
+        return response.data;
+    });
+}
+
 module.exports = {
     createCard,
     createRequestParams,
-    getCardData
+    getCardData,
+    addCommentToCard,
+    addAttachmentToCard
 };

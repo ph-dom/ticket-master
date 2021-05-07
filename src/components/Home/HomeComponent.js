@@ -6,11 +6,31 @@ const HomeComponent = props => {
         <React.Fragment>
             <h1>Mis Tickets</h1>
             {props.tickets.length > 0 ?
-                <ul>
-                    {props.tickets.map(ticket => {
-                        return (<li key={ticket.id}>{ticket.id}</li>);
-                    })}
-                </ul> : 
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Estado</th>
+                            <th>Mensajes</th>
+                            <th>Detalle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {props.tickets.map(ticket => {
+                            console.log(ticket)
+                            return (
+                                <tr key={ticket.id}>
+                                    <td>{ticket.id}</td>
+                                    <td>{ticket.name}</td>
+                                    <td>{ticket.list.name}</td>
+                                    <td>{ticket.actions.length}</td>
+                                    <td>ya va</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table> : 
                 <p>No tienes tickets</p>}
         </React.Fragment>
     );

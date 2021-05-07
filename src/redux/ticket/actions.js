@@ -10,7 +10,7 @@ export const startGetUserTickets = () => {
     return (dispatch, getState) => {
         return axios.get('/api/cards', {
             headers: {
-                'Authorization': getState().user.idToken
+                'Authorization': 'Bearer ' + getState().user.idToken
             }
         }).then(response => {
             dispatch(getUserTickets(response.data));
@@ -21,17 +21,9 @@ export const startGetUserTickets = () => {
     };
 };
 
-const createTicket = ({ id, name, desc, idList, idLabels, idMembers, project }) => ({
+const createTicket = (createdTicket) => ({
     type: 'CREATE_TICKET',
-    data: {
-        id,
-        name,
-        desc,
-        idList,
-        idLabels,
-        idMembers,
-        project
-    }
+    data: createdTicket
 });
 
 export const startCreateTicket = ticket => {
@@ -39,11 +31,13 @@ export const startCreateTicket = ticket => {
         return axios.request({
             url: '/api/cards',
             method: 'post',
-            data: ticket
+            data: ticket,
+            headers: {
+                'Authorization': 'Bearer ' + getState().user.idToken
+            }
         }).then(response => {
-            const idCard = response.data.id;
-            ticket.id = idCard;
-            dispatch(createTicket(ticket));
+            const createdTicket = response.data;
+            dispatch(createTicket(createdTicket));
         }).catch(error => {
             console.log(error);
             dispatch(openModal('Lo sentimos!', 'Error al crear ticket.', 'ERROR'));
