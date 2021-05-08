@@ -9,6 +9,19 @@ const ticketReducer = (state = ticketsReducerDefaultState, action) => {
                 ...state,
                 action.data
             ];
+        case 'ADD_COMMENT_TICKET':
+            return state.map(ticket => {
+                if(ticket.id === action.data.idTicket) {
+                    return {
+                        ...ticket,
+                        actions: [
+                            ...ticket.actions,
+                            action.data.comment
+                        ]
+                    };
+                }
+                return ticket;
+            });
         case 'LOGOUT_USER':
             return ticketsReducerDefaultState;
         default:

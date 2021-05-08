@@ -15,6 +15,7 @@ export const startGetUserTickets = () => {
         }).then(response => {
             dispatch(getUserTickets(response.data));
         }).catch(error => {
+            console.log(error.message);
             dispatch(openModal('Lo sentimos!', 'Error al obtener tickets.', 'ERROR'));
         });
     };
@@ -39,7 +40,35 @@ export const startCreateTicket = ticket => {
             const createdTicket = response.data;
             dispatch(createTicket(createdTicket));
         }).catch(error => {
+            console.log(error.message);
             dispatch(openModal('Lo sentimos!', 'Error al crear ticket.', 'ERROR'));
+        });
+    };
+};
+
+const addCommentToTicket = (idTicket, comment) => ({
+    type: 'ADD_COMMENT_TICKET',
+    data: {
+        idTicket,
+        comment
+    }
+});
+
+export const startAddCommentToTicket = (idCard, comment) => {
+    return (dispatch, getState) => {
+        return axios.request({
+            url: `/api/cards/${idCard}/comments`,
+            method: 'post',
+            data: comment,
+            headers: {
+                'Authorization': 'Bearer ' + getState().user.idToken
+            }
+        }).then(response => {
+            comment.id = response.data.id;
+            dispatch(addCommentToTicket(idCard, response.data));
+        }).catch(error => {
+            console.log(error.message);
+            dispatch(openModal('Lo sentimos!', 'Error al agregar comentario.', 'ERROR'));
         });
     };
 };
