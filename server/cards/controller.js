@@ -1,4 +1,6 @@
 const axios = require('axios').default;
+const fetch = require('node-fetch');
+const FormData = require('form-data');
 const { getCustomFields } = require('../board/controller');
 
 const instance = axios.create({
@@ -95,25 +97,11 @@ const addCommentToCard = (idCard, comment) => {
     });
 }
 
-const addAttachmentToCard = (idCard, attachment) => {
-    return instance.request({
+const addAttachmentToCard = (idCard, formData) => {
+    return fetch(`https://api.trello.com/1/cards/${idCard}/attachments`, {
         method: 'post',
-        url: `/1/cards/${idCard}/attachments`,
-        params: {
-            key: process.env.TRELLO_KEY,
-            token: process.env.TRELLO_TOKEN,
-            name: attachment.name, //The name of the attachment. Max length 256.
-            file: attachment.file, //The file to attach, as multipart/form-data
-            mimeType: attachment.mimeType, //The mimeType of the attachment. Max length 256
-            url: attachment.url, //A URL to attach. Must start with http:// or https://
-            setCover: false //Determines whether to use the new attachment as a cover for the Card.
-        },
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    }).then(response => {
-        return response.data;
-    });
+        body: formData
+    }).then(response => response.json());
 }
 
 module.exports = {

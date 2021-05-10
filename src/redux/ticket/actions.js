@@ -72,3 +72,30 @@ export const startAddCommentToTicket = (idCard, comment) => {
         });
     };
 };
+
+const addAttachmentToTicket = (idTicket, attachment) => ({
+    type: 'ADD_ATTACHMENT_TICKET',
+    data: {
+        idTicket,
+        attachment
+    }
+});
+
+export const startAddAttachmentToCard = (idTicket, formData) => {
+    return (dispatch, getState) => {
+        return axios.request({
+            url: `/api/cards/${idTicket}/attachments`,
+            method: 'post',
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Bearer ' + getState().user.idToken
+            }
+        }).then(response => {
+            dispatch(addAttachmentToTicket(idTicket, response.data));
+        }).catch(error => {
+            console.log(error.message);
+            dispatch(openModal('Lo sentimos!', 'Error al agregar comentario.', 'ERROR'));
+        });
+    };
+};

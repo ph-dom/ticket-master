@@ -2,7 +2,7 @@ import React from 'react';
 
 const FooterComponent = () => (
     <footer>
-        <h6>Ticket-Master</h6>
+        <h6>TicketMaster</h6>
     </footer>
 );
 

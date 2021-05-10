@@ -22,6 +22,19 @@ const ticketReducer = (state = ticketsReducerDefaultState, action) => {
                 }
                 return ticket;
             });
+        case 'ADD_ATTACHMENT_TICKET':
+            return state.map(ticket => {
+                if(ticket.id === action.data.idTicket) {
+                    return {
+                        ...ticket,
+                        attachments: [
+                            ...ticket.attachments,
+                            action.data.attachment
+                        ]
+                    }
+                }
+                return ticket;
+            });
         case 'LOGOUT_USER':
             return ticketsReducerDefaultState;
         default:
