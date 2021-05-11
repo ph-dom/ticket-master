@@ -1,8 +1,42 @@
+:root {
+  --black: #080808;
+  --primary: #48C090;
+  --secondary: #1E1A20;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Oxygen', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F9F9F9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.text-center {
+  text-align: center;
+}
+
+label {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+  color: var(--black);
+}
+
+input, textarea {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--black) !important;
+}
+
+button {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
 }

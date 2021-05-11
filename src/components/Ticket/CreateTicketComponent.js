@@ -1,6 +1,7 @@
 import React, { createRef } from 'react';
 import { connect } from 'react-redux';
 import { startCreateTicket } from '../../redux/ticket/actions';
+import './CreateTicketStyles.css';
 
 const CreateTicketComponent = props => {
     const nameInput = createRef(null);
@@ -25,41 +26,79 @@ const CreateTicketComponent = props => {
     }
 
     return (
-        <form id="ticket-form" onSubmit={handleCreateTicket}>
-            <div>
-                <label htmlFor="ticketName">Título: </label>
-                <input type="text" name="ticketName" id="ticketName" ref={nameInput} defaultValue=""/>
-            </div>
-            <div>
-                <label htmlFor="ticketDescription">Descripción: </label>
-                <textarea name="ticketDescription" id="ticketDescription" ref={descriptionInput} defaultValue="" cols="20" rows="4"/>
-            </div>
-            <div>
-                <label htmlFor="ticketLabel">Nivel: </label>
-                <select name="ticketLabel" id="ticketLabel" ref={labelInput} defaultValue="">
-                    <option value="">Seleccione...</option>
-                    {(props.labels.length > 0) && props.labels.map(label => {
-                        return (
-                            <option key={label.id} value={label.id}>{label.name}</option>
-                        );
-                    })}
-                </select>
-            </div>
-            <div>
-                <label>Proyecto: </label>
-                <select name="project" id="project" ref={projectInput} defaultValue="">
-                    <option value="">Seleccione...</option>
-                    {(props.projects.length > 0) && props.projects.map(project => {
-                        return (
-                            <option key={project} value={project}>{project}</option>
-                        );
-                    })}
-                </select>
-            </div>
-            <div>
-                <button type="submit" form="ticket-form">Crear Ticket</button>
-            </div>
-        </form>
+        <React.Fragment>
+            <h2 className="text-center">Crear Ticket</h2>
+            <form className="form" id="ticket-form" onSubmit={handleCreateTicket}>
+                <div className="form-group">
+                    <label className="form-group_label" htmlFor="ticketName">Título</label>
+                    <input
+                        className="form-group_input"
+                        placeholder="Título.."
+                        type="text"
+                        name="ticketName"
+                        id="ticketName"
+                        ref={nameInput}
+                        defaultValue=""
+                        autoComplete="off"
+                        required={true}
+                    />
+                </div>
+                <div className="form-group">
+                    <label className="form-group_label" htmlFor="ticketDescription">Descripción</label>
+                    <textarea
+                        className="form-group_textarea"
+                        placeholder="Descripción.."
+                        name="ticketDescription"
+                        id="ticketDescription"
+                        ref={descriptionInput}
+                        defaultValue=""
+                        cols="20"
+                        rows="4"
+                        autoComplete="off"
+                        required={true}
+                    />
+                </div>
+                <div className="form-group">
+                    <label className="form-group_label" htmlFor="ticketLabel">Nivel</label>
+                    <select
+                        className="form-group_select"
+                        name="ticketLabel"
+                        id="ticketLabel"
+                        ref={labelInput}
+                        defaultValue=""
+                        required={true}
+                    >
+                        <option value="">Seleccione...</option>
+                        {(props.labels.length > 0) && props.labels.map(label => {
+                            return (
+                                <option key={label.id} value={label.id}>{label.name}</option>
+                            );
+                        })}
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label className="form-group_label" htmlFor="project">Proyecto</label>
+                    <select
+                        className="form-group_select"
+                        name="project"
+                        id="project"
+                        ref={projectInput}
+                        defaultValue=""
+                        required={true}
+                    >
+                        <option value="">Seleccione...</option>
+                        {(props.projects.length > 0) && props.projects.map(project => {
+                            return (
+                                <option key={project} value={project}>{project}</option>
+                            );
+                        })}
+                    </select>
+                </div>
+                <div className="form-action">
+                    <button className="button-submit" type="submit" form="ticket-form">Crear Ticket</button>
+                </div>
+            </form>
+        </React.Fragment>
     );
 }
 

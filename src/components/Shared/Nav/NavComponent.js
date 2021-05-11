@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { startLogoutUser } from '../../redux/user/actions';
+import { startLogoutUser } from '../../../redux/user/actions';
+import './NavStyles.css';
 
 const NavComponent = props => {
 
@@ -11,14 +12,18 @@ const NavComponent = props => {
 
     return (
         <header>
-            <h1>TicketMaster</h1>
+            <h1 className="logo">TicketMaster</h1>
             {props.isAuthenticated &&
-                <nav>
-                    <ul>
+                <nav >
+                    <ul className="nav-list">
                         <li><NavLink to="/">Mis Tickets</NavLink></li>
                         <li><NavLink to="/create-ticket">Crear Ticket</NavLink></li>
                         {props.role === 'admin' && <li><NavLink to="/user">Crear Usuario</NavLink></li>}
-                        <li><button onClick={handleLogout}>Cerrar sesión</button></li>
+                        <li>
+                            <button onClick={handleLogout}>
+                                <span className="material-icons">logout</span>
+                            </button>
+                        </li>
                     </ul>
                 </nav>
             }

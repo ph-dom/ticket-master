@@ -1,0 +1,17 @@
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer p {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+footer a {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: inherit;
+}
