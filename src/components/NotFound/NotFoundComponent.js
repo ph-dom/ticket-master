@@ -1,9 +1,9 @@
 import React from 'react';
 
 const NotFoundComponent = props => (
-    <React.Fragment>
-        <h1>Not Found :c</h1>
-    </React.Fragment>
+    <section>
+        <h1 className="text-center">Página no encontrada :c</h1>
+    </section>
 );
 
 export default NotFoundComponent;

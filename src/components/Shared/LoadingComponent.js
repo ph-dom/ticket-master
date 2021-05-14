@@ -1,9 +1,8 @@
 import React from 'react';
-import './LoadingStyles.css';
 
 const LoadingComponent = () => (
     <div className="loading-animation">
-        <svg version="1.1" id="L6" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        <svg className="d-block mx-auto" version="1.1" id="L6" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 100 100" height="300" width="300" enableBackground="new 0 0 100 100" xmlSpace="preserve">
             <rect fill="#48C090" stroke="#48C090" strokeWidth="4" x="25" y="25" width="50" height="50">
                 <animateTransform

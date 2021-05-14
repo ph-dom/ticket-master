@@ -1,35 +1,50 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import './HomeStyles.css';
 
 const HomeComponent = props => {
     return (
-        <React.Fragment>
-            <h2 className="text-center">Mis Tickets</h2>
-            <div className="tickets-list">
-                <div><b>Nombre</b></div>
-                <div><b>Estado</b></div>
-                <div><b>Mensajes</b></div>
-                <div><b>Detalle</b></div>
-                {props.tickets.length > 0 ?
-                    props.tickets.map(ticket => {
-                        return (
-                            <React.Fragment key={ticket.id}>
-                                <div><span>{ticket.name}</span></div>
-                                <div><span>{ticket.list.name}</span></div>
-                                <div><span>{ticket.actions.length}</span></div>
-                                <div>
-                                    <Link className="linkToTicket" to={`/ticket/${ticket.id}`}>
-                                        <span className="material-icons">visibility</span>
-                                    </Link>
-                                </div>
-                            </React.Fragment>
-                        );
-                    }) : 
-                    (<p>No tienes tickets</p>) }
+        <section className="container">
+            <div className="row">
+                <div className="col s12 m10 l8 xl6">
+                    <h4>Mis Tickets</h4>
+                    <table className="striped responsive-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                                <th>Mensajes</th>
+                                <th>Detalle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {props.tickets.length > 0 ?
+                            props.tickets.map(ticket => {
+                                return (
+                                    <tr key={ticket.id}>
+                                        <td style={{ maxWidth: '230px' }}>
+                                            <span>{ticket.name}</span>
+                                        </td>
+                                        <td>
+                                            <span>{ticket.list.name}</span>
+                                        </td>
+                                        <td className="text-center">
+                                            <span>{ticket.actions.length}</span>
+                                        </td>
+                                        <td className="text-center">
+                                            <Link to={`/ticket/${ticket.id}`}>
+                                                <i className="material-icons">visibility</i>
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                );
+                            }) : 
+                            (<tr><td colSpan="4"><span>No tienes tickets</span></td></tr>) }
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </React.Fragment>
+        </section>
     );
 }
 

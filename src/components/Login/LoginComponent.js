@@ -15,19 +15,36 @@ class LoginComponent extends React.Component {
 
     render() {
         return (
-            <form id="login-form" name="login-form" onSubmit={this.handleSubmitForm}>
-                <div>
-                    <label htmlFor="email">Correo: </label>
-                    <input type="email" name="email" id="email" ref={this.emailInput} />
-                </div>
-                <div>
-                    <label htmlFor="password">Contraseña: </label>
-                    <input type="password" name="password" id="password" ref={this.passwordInput} />
-                </div>
-                <div>
-                    <button type="submit" form="login-form">Iniciar Sesión</button>
-                </div>
-            </form>
+            <section className="container">
+                <form className="row" id="login-form" onSubmit={this.handleSubmitForm}>
+                    <div className="col s12 m10 l8 xl6">
+                        <h4>Iniciar Sesión</h4>
+                        <div className="input-field">
+                            <label htmlFor="email">Correo</label>
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                ref={this.emailInput}
+                                autoComplete="off"
+                                required={true}
+                            />
+                        </div>
+                        <div className="input-field">
+                            <label htmlFor="password">Contraseña</label>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                ref={this.passwordInput}
+                                autoComplete="off"
+                                required={true}
+                            />
+                        </div>
+                        <button className="btn waves-effect waves-light" type="submit" form="login-form">Iniciar Sesión</button>
+                    </div>
+                </form>
+            </section>
         );
     }
 }

@@ -1,0 +1,34 @@
+@import './attachments';
+@import './comments';
+
+.default-select {
+    margin-block-end: 10px;
+}
+
+.checkbox-group {
+    margin-block-start: 10px;
+    margin-block-end: 10px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.d-block {
+    display: block;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+time {
+    font-size: 12px;
+}
+
+.loading-animation {
+    display: block;
+    width: 100%;
+    height: 100%;
+}

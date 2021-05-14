@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
-import { closeModal } from '../../../redux/modal/actions';
+import { closeModal } from '../../redux/modal/actions';
 
 Modal.setAppElement('#root')
 

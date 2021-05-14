@@ -4,10 +4,10 @@ import { auth } from '../../config/firebase';
 import { loginUser, logoutUser, getUserData } from '../../redux/user/actions';
 import { startGetBoardData } from '../../redux/board/actions';
 import { startGetUserTickets } from '../../redux/ticket/actions';
-import NavComponent from './Nav/NavComponent';
-import LoadingComponent from './Loading/LoadingComponent';
-import ModalComponent from './Modal/ModalComponent';
-import FooterComponent from './Footer/FooterComponent';
+import NavComponent from './NavComponent';
+import LoadingComponent from './LoadingComponent';
+import ModalComponent from './ModalComponent';
+import FooterComponent from './FooterComponent';
 
 class BaseComponent extends React.Component {
 
