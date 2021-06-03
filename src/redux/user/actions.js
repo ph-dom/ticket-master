@@ -16,7 +16,9 @@ export const loginUser = ({ uid, email, phoneNumber, password, displayName, proj
 
 export const startLoginUser = (email, password) => {
     return () => {
-        return auth.signInWithEmailAndPassword(email, password);
+        return auth.signInWithEmailAndPassword(email, password).catch(() => {
+            window.M.toast({ html: 'Correo o contraseña mal ingresada.' });
+        });
     };
 };
 

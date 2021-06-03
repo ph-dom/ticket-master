@@ -39,6 +39,7 @@ export const startCreateTicket = ticket => {
             ticket.id = response.data.id;
             const createdTicket = response.data;
             dispatch(createTicket(createdTicket));
+            window.M.toast({ html: 'Ticket creado exitosamente.' });
         }).catch(error => {
             console.log(error.message);
             dispatch(openModal('Lo sentimos!', 'Error al crear ticket.', 'ERROR'));
@@ -66,6 +67,7 @@ export const startAddCommentToTicket = (idCard, comment) => {
         }).then(response => {
             comment.id = response.data.id;
             dispatch(addCommentToTicket(idCard, response.data));
+            window.M.toast({ html: 'Comentario enviado exitosamente.' });
         }).catch(error => {
             console.log(error.message);
             dispatch(openModal('Lo sentimos!', 'Error al agregar comentario.', 'ERROR'));
@@ -93,6 +95,7 @@ export const startAddAttachmentToCard = (idTicket, formData) => {
             }
         }).then(response => {
             dispatch(addAttachmentToTicket(idTicket, response.data));
+            window.M.toast({ html: 'Archivo adjunto exitosamente.' });
         }).catch(error => {
             console.log(error.message);
             dispatch(openModal('Lo sentimos!', 'Error al agregar comentario.', 'ERROR'));

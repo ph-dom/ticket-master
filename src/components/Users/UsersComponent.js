@@ -17,7 +17,6 @@ const createNewUser = (idToken, newUser) => {
 
 const UserComponent = props => {
     const [ projects, setProjects ] = useState([]);
-    const [ message, setMessage ] = useState('');
 
     const nameRef = createRef(null);
     const emailRef = createRef(null);
@@ -52,10 +51,10 @@ const UserComponent = props => {
             role: roleRef.current.value
         };
         createNewUser(props.idToken, newUser).then(data => {
-            setMessage('Usuario creado con éxito. uid: ' + data.uid);
             document.querySelector('#user-form').reset();
+            window.M.toast({ html: 'Usuario creado exitosamente.' });
         }).catch(error => {
-            setMessage('Error al registrar usuario.');
+            window.M.toast({ html: 'Error al crear un nuevo usuario.' });
         })
     }
 
@@ -145,7 +144,6 @@ const UserComponent = props => {
                     <button className="btn waves-effect waves-light" type="submit" form="user-form">Crear Usuario</button>
                 </div>
             </form>
-            {message && <p>{message}</p>}
         </section>
     );
 }
