@@ -73,10 +73,10 @@ router.post('/api/cards/:idTicket/attachments', upload.single('file'), authmid, 
         formData.append('key', process.env.TRELLO_KEY);
         formData.append('token', process.env.TRELLO_TOKEN);
         formData.append('setCover', 'false');
+        formData.append('name', request.body.name);
         if(request.body.url) {
             formData.append('url', request.body.url);
         } else {
-            formData.append('name', request.body.name);
             formData.append('file', request.file.buffer, { filename: request.file.originalname });
             formData.append('mimeType', request.file.mimetype);
         }

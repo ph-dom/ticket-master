@@ -28,10 +28,10 @@ const TicketComponent = props => {
         let formData = new FormData();
         if(attachment.file) {
             formData.append('file', attachment.file);
-            formData.append('name', attachment.name);
         } else if(attachment.url) {
             formData.append('url', attachment.url);
         }
+        formData.append('name', attachment.name);
         props.startAddAttachmentToCard(props.ticket.id, formData).then(() => {
             document.querySelector('#attachment-form').reset();
             setAttachment({
@@ -116,7 +116,7 @@ const TicketComponent = props => {
                                                         width="100"
                                                     >
                                                         <rect x="0" y="0" width="100" height="100" stroke="none" fill="rgba(0,0,0,0.2)" />
-                                                        <text x="50" y="50" alignmentBaseline="middle" textAnchor="middle" fontSize="20">{attm.fileName.split('.').pop()}</text>
+                                                        <text x="50" y="50" alignmentBaseline="middle" textAnchor="middle" fontSize="20">{attm.fileName?.split('.').pop() || 'URL'}</text>
                                                     </svg>}
                                                 <div>
                                                     <strong>{attm.name}</strong>
@@ -124,7 +124,9 @@ const TicketComponent = props => {
                                                 </div>
                                                 <div className="attachment-item_link">
                                                     <a target="_blank" href={attm.url} rel="noreferrer">
-                                                        <i className="material-icons">file_download</i>
+                                                        {attm.fileName ? 
+                                                            <i className="material-icons">file_download</i> :
+                                                            <i className="material-icons">forward</i> }
                                                     </a>
                                                 </div>
                                             </li>
@@ -167,7 +169,7 @@ const TicketComponent = props => {
                                         required={true}
                                     />
                                 </div>}
-                                {attachment.file && <div className="input-field">
+                                <div className="input-field">
                                     <label htmlFor="name">Nombre: </label>
                                     <input
                                         type="text"
@@ -180,7 +182,7 @@ const TicketComponent = props => {
                                         autoComplete="off"
                                         required={true}
                                     />
-                                </div>}
+                                </div>
                                 <button className="btn waves-effect waves-light" type="submit" form="attachment-form">Guardar</button>
                             </form>
                         </div>

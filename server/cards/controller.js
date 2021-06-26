@@ -1,6 +1,5 @@
 const axios = require('axios').default;
 const fetch = require('node-fetch');
-const FormData = require('form-data');
 const { getCustomFields } = require('../board/controller');
 
 const instance = axios.create({
